@@ -87,7 +87,14 @@ importers:
         version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)
 
   packages/browser-utils:
+    dependencies:
+      '@miaoma-monitor-demo/core':
+        specifier: workspace:*
+        version: link:../core
     devDependencies:
+      '@types/node':
+        specifier: 22.5.5
+        version: 22.5.5
       tsup:
         specifier: 8.5.1
         version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)

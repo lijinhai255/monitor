@@ -27,7 +27,7 @@ const packagesConfig = {
         },
     },
     rules: {
-        'no-console': 'error',
+        // 'no-console': 'error',
     },
 }
 

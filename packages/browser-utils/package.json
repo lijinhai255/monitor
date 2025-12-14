@@ -13,7 +13,11 @@
     "author": "Heyi",
     "license": "ISC",
     "description": "",
+    "dependencies": {
+        "@miaoma-monitor-demo/core": "workspace:*"
+    },
     "devDependencies": {
+        "@types/node": "22.5.5",
         "tsup": "8.5.1"
     }
 }

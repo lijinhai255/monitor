@@ -1,26 +1,27 @@
-import { init as buInit } from '@miaoma-monitor-demo/browser-utils'
+import { Metrics } from '@miaoma-monitor-demo/browser-utils'
+import { type Integration, Monitoring } from '@miaoma-monitor-demo/core'
+
 import { Errors } from './integrations/errorsIntegration'
+import { BrowserTransport } from './transport'
 
-const errors = new Errors()
+export function init(options: { dsn: string; integrations?: Integration[] }) {
+    const monitoring = new Monitoring(options)
 
-export function init() {
-    buInit()
-    errors.init()
+    const transport = new BrowserTransport(options.dsn)
 
-    // // 错误监控指标采集
-    // window.addEventListener('error', event => {
-    //     console.log('error', event)
-    // })
+    monitoring.init(transport)
 
-    // // 对于异步数据指标采集
-    // window.addEventListener('unhandledrejection', event => {
-    //     console.log('unhandledrejection', event)
-    // })
+    new Errors(transport).init()
+    new Metrics(transport).init()
 
-    // // 对于性能采集
-    // new PerformanceObserver(list => {
-    //     for (const entry of list.getEntries()) {
-    //         console.log(entry)
-    //     }
-    // }).observe({ entryTypes: ['resource', 'longtask'] })
+    return monitoring
 }
+
+/**
+ * 使用示例
+ * import { init } from '@miaoma-monitor-demo/browser'
+ * init({
+ *     dsn: 'xxxx',
+ *     integrations: [new Errors(), new Metrics()]
+ * })
+ */

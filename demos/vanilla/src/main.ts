@@ -1,11 +1,16 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
 
 import { init } from '@miaoma-monitor-demo/browser'
 
-init()
+import viteLogo from '/vite.svg'
+
+import { setupCounter } from './counter.ts'
+import typescriptLogo from './typescript.svg'
+
+const monitoring = init({
+    dsn: '######',
+    integrations: [],
+})
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -26,6 +31,14 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 `
 
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+
+document.addEventListener('click', () => {
+    monitoring.reportMessage('click')
+    monitoring.reportEvent({
+        type: 'page-load',
+        message: 'ha',
+    })
+})
 
 // myUndefinedFunction()
 
